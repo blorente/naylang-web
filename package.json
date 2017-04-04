@@ -1,23 +1,18 @@
 {
   "name": "naylang-web",
-  "version": "1.0.0",
-  "description": "A web frontend for the Naylang Grace Interpreter",
-  "main": "app.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blorente/naylang-web.git"
-  },
-  "keywords": [
-    "Naylang",
-    "Grace"
-  ],
-  "author": "Borja Lorente Escobar (blorente@ucm.es)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/blorente/naylang-web/issues"
-  },
-  "homepage": "https://github.com/blorente/naylang-web#readme"
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "morgan": "~1.8.1",
+    "node-sass-middleware": "0.9.8",
+    "pug": "~2.0.0-beta11",
+    "serve-favicon": "~2.4.2"
+  }
 }
