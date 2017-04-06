@@ -9,6 +9,7 @@ var sassMiddleware = require('node-sass-middleware');
 var index = require('./routes/index');
 
 var app = express();
+global.appRoot = path.resolve(__dirname);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
