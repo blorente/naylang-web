@@ -1,38 +1,28 @@
-var express = require('express');
-var router = express.Router();
-const exec = require('child_process').exec;
+const express = require('express');
+const router = express.Router();
+const app = require('../app.js');
 const path = require('path');
 
+let Interpreter = require('./Interpreter.js');
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  interpreter.execInterpreter();
-  res.render('index', { title: 'Naylang Grace Interpreter' });
+router.get('/', function(req, res) {
+    Interpreter.interpreters.push(new Interpreter(reqIndex));
+
+    let options = {
+        maxAge: 1000 * 60 * 60, // would expire after 1 hr
+        httpOnly: true, // The cookie only accessible by the web server
+        signed: true // Indicates if the cookie should be signed
+    };
+
+    res.cookie('reqId', reqIndex, options);
+    res.render('index', { title: 'Naylang Grace Interpreter', commandResult: "Hello World" });
+    reqIndex++;
 });
 
-let interpreter = {
-  buffer: "",
-  execInterpreter: () => {
-    interp = exec(path.join(appRoot, 'bin/interpreter'),
-    { env:
-      {LD_LIBRARY_PATH : '$LD_LIBRARY_PATH:' + path.join(appRoot, 'lib/')}
-    });
-
-    interp.stdout.on('data', (data) => {
-      if (data != '>>> ') {
-        console.log("Buffered data: " + data);
-        this.buffer += data;
-      } else {
-        console.log("Discarded data: " + data);
-      }
-    })
-
-    interp.on('exit', function (code) {
-      console.log('Child process exited with exit code '+code);
-    });
-
-    interp.stdin.write('var x := 3');
-    interp.stdin.end();
-  }
-}
+app.post('/', (req, res) => {
+    console.log(req.cookies);
+    res.render('index', { title: 'Naylang Grace Interpreter', commandResult: "Hello Worldd" });
+});
 
 module.exports = router;

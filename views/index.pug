@@ -2,9 +2,4 @@ extends layout
 
 block content
   h1= title
-  section.row
-      textarea.col-md-6.full-height#pad        
-      div.col-md-6.full-height#output
-
-  script(src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js")
-  script(src="javascripts/console.js")
+  include interpreter

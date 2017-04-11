@@ -1,16 +1,23 @@
+let output;
+
 window.onload = function() {
-    const converter = new showdown.Converter();
     const pad = document.getElementById('pad');
-    const output = document.getElementById('output');   
+
+    output = new Vue({
+        el: '#output',
+        data: {
+            commandResult: "";
+        }
+    });
 
     const getCommand = (pad) => {
         const promptIndex = pad.value.lastIndexOf(">>>") + 3;
         return pad.value.substring(promptIndex);
-    }
+    };
 
     const executeCommand = () => {
         const command = getCommand(pad);
-        output.innerHTML += `<p>Requested command ${command}</p>`;
+        post('/interpret/', {command: command});
     };
 
     const refreshPrompt = () => {
@@ -30,4 +37,30 @@ window.onload = function() {
     pad.addEventListener('keypress', ifEnterExecuteCommand)
     pad.innerHTML = "";
     refreshPrompt();
+
+    function post(path, params, method) {
+        method = method || "post"; // Set method to post by default if not specified.
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+            }
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
 };
+
+module.exports.output = output;
